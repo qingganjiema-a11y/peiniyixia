@@ -371,7 +371,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:56px 0 28px}
           <li>做事搭子、深度陪聊</li>
           <li>無需出門，在家即可</li>
         </ul>
-        <button class="btn ghost" onclick="toggleOnlinePrices()">查看完整線上價目</button>
+        <button class="btn ghost online-expand-btn" onclick="toggleOnlinePrices()">查看完整線上價目</button>
       </div>
     </div>
 
@@ -385,9 +385,9 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:56px 0 28px}
           <div class="online-card"><div class="online-icon">🌙</div><h4>睡前語音陪伴</h4><div class="online-price">NT$2,400<small> / 2小時起</small></div><p>睡前語音陪伴，不會自動延長</p></div>
           <div class="online-card"><div class="online-icon">🎬</div><h4>線上陪看電影</h4><div class="online-price">NT$600<small> / 小時</small></div><p>雙方各自合法影音來源同步陪看</p></div>
           <div class="online-card featured-online"><div class="online-icon">🎤</div><h4>線上點歌</h4><div class="online-price">NT$300<small> / 首</small></div><p>一對一即時唱歌，歌單外可先詢問</p><button class="songlist-btn-small" onclick="openSongList()">查看小閒歌單</button></div>
-          <div class="online-card"><div class="online-icon">📄</div><h4>感情卡關整理</h4><div class="online-price">NT$2,000<small> / 份</small></div><p>PDF文字整理，3天內交件，急件加500</p></div>
+          <div class="online-card"><div class="online-icon">📄</div><h4>感情卡關整理</h4><div class="online-price">NT$2,000<small> / 份</small></div><p>針對感情問題脈絡、目前卡點、觀察方向與下一步建議做深度文字整理。填寫專屬問卷後，3天內交付3–5頁PDF（約3000–5000字），急件24小時內交件加NT$500。</p></div>
         </div>
-        <p style="text-align:center;margin-top:20px;font-size:13px;color:var(--muted);">💡 尖峰時段加價 15%，特殊節日加價 20%。範例：週六下午陪逛街 2 小時 = NT$1,600 × 2 × 1.15 = <strong style="color:var(--brand);">NT$3,680</strong></p>
+        <p style="text-align:center;margin-top:20px;font-size:13px;color:var(--muted);line-height:2;">💡 <strong>尖峰時段加價 15%</strong>：週五晚上（18:00後）、週六日全天、連續假期<br><strong>特殊節日加價 20%</strong>：情人節、聖誕節、跨年等<br>📌 範例：週六下午陪逛街 2 小時 = NT$1,600 × 2 × 1.15 = <strong style="color:var(--brand);">NT$3,680</strong></p>
       </div>
     </div>
   </div>
@@ -824,15 +824,16 @@ if(dateInput)dateInput.setAttribute('min',new Date().toISOString().split('T')[0]
 // 線上價目展開
 function toggleOnlinePrices(){
   const content=document.getElementById('onlineContent');
+  const btn=document.querySelector('.online-expand-btn');
   content.classList.toggle('open');
   if(content.classList.contains('open')){
-    content.style.maxHeight=content.scrollHeight+'px';
-    content.style.display='block';
-    document.querySelector('.online-expand-btn').textContent='收合線上價目';
+    btn.textContent='收合線上價目';
+    // 滾動到展開內容
+    setTimeout(()=>{
+      content.scrollIntoView({behavior:'smooth',block:'nearest'});
+    },100);
   }else{
-    content.style.maxHeight=null;
-    content.style.display='none';
-    document.querySelector('.online-expand-btn').textContent='查看完整線上價目';
+    btn.textContent='查看完整線上價目';
   }
 }
 
